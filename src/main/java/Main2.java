@@ -1,12 +1,9 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class Main2 {
     public static void main(String[] args) {
 
-        try {
+        try (FileWriter writer = new FileWriter("src/main/resources/payroll.json");){
             FileReader fileReader = new FileReader("src/main/resources/employees.csv");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
@@ -29,6 +26,9 @@ public class Main2 {
                         employee.getEmployeeId(),
                         employee.getName(),
                         employee.getGrossPay());
+
+                writer.write("Employee ID: %d | Name: %s | Gross Pay: $%.2f%n");
+
             }
         } catch (FileNotFoundException e) {
             System.out.println("Couldn't find the file: " + e.getMessage());
